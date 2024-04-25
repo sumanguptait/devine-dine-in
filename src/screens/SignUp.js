@@ -65,6 +65,7 @@ export default function SignUp() {
           onSubmit={handleSubmit}
         >
           <div className="m-3">
+            <h2>SignUp</h2>
             <label htmlFor="name" className="form-label">
               Name
             </label>

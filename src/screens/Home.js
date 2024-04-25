@@ -41,11 +41,12 @@ export default function Home() {
               <input
                 className="form-control me-2"
                 type="search"
+                placeholder="Search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search"
                 aria-label="Search"
               />
+
               {/* <button
                 className="btn btn-outline-success text-white bg-success"
                 type="submit"

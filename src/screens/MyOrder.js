@@ -43,7 +43,7 @@ export default function MyOrder() {
                         return item.map((arrayData) => {
                           return arrayData.order_date ? (
                             <div className="m-auto mt-5">
-                              {(data = arrayData.order_date)} <hr />
+                              {(data = arrayData.order_date)}
                             </div>
                           ) : (
                             <div className="col-12 col-md-6 col-lg-3">
@@ -67,6 +67,7 @@ export default function MyOrder() {
                                     <div className="d-inline ms-2 h-100 w-20 fs-5">
                                       ₹{arrayData.price}/-
                                     </div>
+                                    <hr />
                                   </div>
                                 </div>
                               </div>

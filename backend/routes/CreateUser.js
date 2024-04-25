@@ -4,8 +4,8 @@ const User = require("../models/User");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const axios = require("axios");
 const jwtSecret = "MyNameIsAlooGhobhiBhindi.$#";
+const nodemailer = require("nodemailer");
 router.post(
   "/createuser",
   [
@@ -79,4 +79,57 @@ router.post(
     }
   }
 );
+router.post("/forgot-password", async (req, res) => {
+  let email = req.body.email;
+  User.findOne({ email }).then((user) => {
+    if (!user) {
+      return res.send({ Status: "User not existed" });
+    }
+    // console.log(token);
+
+    const token = jwt.sign({ id: user._id }, jwtSecret, { expiresIn: "1d" });
+    const transporter = nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      port: 587,
+      auth: {
+        user: "jakob14@ethereal.email",
+        pass: "89GuEdTuNMUH1j1haz",
+      },
+    });
+    var mailOptions = {
+      from: "jakob14@ethereal.email",
+      to: user.email,
+      subject: "Reset password link",
+      text: `http://localhost:3000/reset-password/${user._id}/${token}`,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent:" + info.response);
+        return res.json({ success: true });
+      }
+    });
+  });
+});
+router.post("/reset-password/:id/:token", async (req, res) => {
+  const { id, token } = req.params;
+  const { password } = req.body;
+  jwt.verify(token, jwtSecret, (err, decoded) => {
+    if (err) {
+      console.error("Token verification failed:", err.message);
+    } else {
+      console.log("Token decoded and verified:", decoded);
+      bcrypt
+        .hash(password, 10)
+        .then((hash) => {
+          User.findByIdAndUpdate({ _id: id }, { password: hash })
+            .then((u) => res.json({ success: true }))
+            .catch((err) => res.json({ success: false }));
+        })
+        .catch((err) => res.json({ success: false }));
+    }
+  });
+});
 module.exports = router;

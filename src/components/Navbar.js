@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+
 import { useCart } from "../components/ContextReducer";
 import Badge from "react-bootstrap/Badge";
 import Model from "../Model";

@@ -19,8 +19,6 @@ const reducer = (states, action) => {
       return states.filter((item, index) => index !== action.index);
 
     case "DROP":
-      alert("Thank you!! Your order has been Submitted");
-
       let empArray = [];
       return empArray;
     case "UPDATE":

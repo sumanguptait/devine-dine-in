@@ -1,3 +1,5 @@
+// import { useState } from "react";
+import Swal from "sweetalert2";
 import { useDispatchCart, useCart } from "../components/ContextReducer";
 // import { trash } from "../trash.svg";
 export default function Cart() {
@@ -28,6 +30,13 @@ export default function Cart() {
     });
     console.log("response: ", response);
     if (response.status === 200) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Your order has been confirmed",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       dispatch({ type: "DROP" });
     }
   };
