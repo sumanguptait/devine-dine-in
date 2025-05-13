@@ -1,3 +1,4 @@
+import React from "react";
 import "./App.css";
 import Home from "./screens/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -10,6 +11,8 @@ import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
 import SignUp from "./screens/SignUp";
 import { CartProvider } from "./components/ContextReducer.js";
 import ResetPassword from "./screens/ResetPassword.js";
+import Success from "./screens/Success.js";
+import Cancel from "./screens/Cancel.js";
 function App() {
   return (
     <CartProvider>
@@ -19,6 +22,8 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<SignUp />} />
           <Route exact path="/myorder" element={<MyOrder />} />
+          <Route exact path="/success" element={<Success />} />
+          <Route exact path="/cancel" element={<Cancel />} />
           <Route exact path="/forgot-password" element={<ForgotPassword />} />
           <Route
             exact

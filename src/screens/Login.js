@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { Link, useNavigate } from "react-router-dom";
+import React from "react";
 
 export default function Login() {
   const [credentials, setCredentials] = useState({
@@ -16,7 +17,7 @@ export default function Login() {
     //     password: credentials.password,
     //   })
     // );
-    const response = await fetch("http://localhost:5000/api/loginuser", {
+    const response = await fetch("http://localhost:3100/api/loginuser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

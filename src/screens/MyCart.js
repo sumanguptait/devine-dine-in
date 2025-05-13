@@ -1,6 +1,7 @@
-// import { useState } from "react";
+import React from "react";
 import Swal from "sweetalert2";
 import { useDispatchCart, useCart } from "../components/ContextReducer";
+import { loadStripe } from "@stripe/stripe-js";
 // import { trash } from "../trash.svg";
 export default function Cart() {
   let data = useCart();
@@ -14,35 +15,49 @@ export default function Cart() {
       </div>
     );
   }
+
   const handleCheckOut = async () => {
+    const stripePromise = loadStripe(
+      "pk_test_51QDMcnRtAifqAxFpOdEzk7YcI07jPk2cjUxM86xGPQ9VX6p5mRHa7UzCD0ObxuijUmm1wPKZZtya5McstELMiuMF00dwTvdMDx"
+    );
     let userEmail = localStorage.getItem("userEmail");
-    console.log(data, localStorage.getItem("userEmail"), new Date());
-    const response = await fetch("http://localhost:5000/api/orderData", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        order_data: data,
-        email: userEmail,
-        order_date: dateAndTime,
-      }),
-    });
-    console.log("response: ", response);
-    if (response.status === 200) {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Your order has been confirmed",
-        showConfirmButton: false,
-        timer: 1500,
+
+    if (!userEmail || !data || data.length === 0) {
+      console.error("Missing user email or order data.");
+      return;
+    }
+
+    try {
+      const stripe = await stripePromise;
+
+      const response = await fetch(
+        "http://localhost:3100/api/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            items: data, // Pass cart data
+          }),
+        }
+      );
+
+      if (!response.ok) throw new Error("Failed to create checkout session");
+
+      const session = await response.json();
+
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id,
       });
-      dispatch({ type: "DROP" });
+
+      if (result.error) console.error(result.error);
+    } catch (error) {
+      console.error("Checkout error:", error.message);
     }
   };
-
   let totalPrice = data.reduce((total, food) => total + food.price, 0);
-  //   console.log(data);
+  console.log("data:", data);
   return (
     <>
       <div className="container m-auto mt-5 table-responsive table-responsive-sm table-responsive=md">

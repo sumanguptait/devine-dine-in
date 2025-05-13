@@ -1,4 +1,5 @@
 import { useContext, createContext, useReducer } from "react";
+import React from "react";
 const CartStatesContext = createContext();
 const CartDispatchContext = createContext();
 const reducer = (states, action) => {

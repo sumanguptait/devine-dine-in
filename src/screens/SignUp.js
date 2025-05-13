@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { Link, useNavigate } from "react-router-dom";
+import React from "react";
 
 export default function SignUp() {
   let navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function SignUp() {
         location: credentials.geolocation,
       })
     );
-    const response = await fetch("http://localhost:5000/api/createuser", {
+    const response = await fetch("http://localhost:3100/api/createuser", {
       method: "post",
       headers: {
         "Content-Type": "application/json",

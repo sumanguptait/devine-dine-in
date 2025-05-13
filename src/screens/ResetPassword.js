@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate, useParams } from "react-router-dom";
+import React from "react";
 
 export default function ResetPassword() {
   const { id, token } = useParams();
@@ -14,7 +15,7 @@ export default function ResetPassword() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/reset-password/${id}/${token}`,
+        `http://localhost:3100/api/reset-password/${id}/${token}`,
         {
           method: "POST",
           headers: {

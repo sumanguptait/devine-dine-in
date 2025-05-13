@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 export default function ForgotPassword() {
   const [credentials, setCredentials] = useState({
@@ -14,7 +15,7 @@ export default function ForgotPassword() {
     //     email: credentials.email,
     //   })
     // );
-    const response = await fetch("http://localhost:5000/api/forgot-password", {
+    const response = await fetch("http://localhost:3100/api/forgot-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

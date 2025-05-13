@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 export default function MyOrder() {
   const [orderData, setOrderData] = useState("");
   const fetchMyOrder = async () => {
-    await fetch("http://localhost:5000/api/myOrderData", {
+    await fetch("http://localhost:3100/api/myOrderData", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +65,7 @@ export default function MyOrder() {
                                     </span>
                                     <span className="m-1">{data}</span>
                                     <div className="d-inline ms-2 h-100 w-20 fs-5">
-                                      ₹{arrayData.price}/-
+                                      ${arrayData.price}/-
                                     </div>
                                     <hr />
                                   </div>

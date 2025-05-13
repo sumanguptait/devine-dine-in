@@ -101,7 +101,7 @@ export default function Card(props) {
                   );
                 })}
               </select>
-              <div className="d-inline h-100 fs-5 ">Rs.{finalPrice}/-</div>
+              <div className="d-inline h-100 fs-5 ">$: {finalPrice}</div>
             </div>
             <hr />
             <button
